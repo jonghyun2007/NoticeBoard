@@ -2,12 +2,14 @@ package kr.jonghyun.noticeboard;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+@EnableJpaAuditing
 @SpringBootApplication
-public class Temp1Application {
+public class NoticeboardApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Temp1Application.class, args);
+        SpringApplication.run(NoticeboardApplication.class, args);
     }
 
 }
