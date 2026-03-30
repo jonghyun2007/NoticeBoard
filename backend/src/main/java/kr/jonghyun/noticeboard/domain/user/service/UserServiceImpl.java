@@ -1,5 +1,7 @@
 package kr.jonghyun.noticeboard.domain.user.service;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import kr.jonghyun.noticeboard.domain.user.dto.UserRequestDto;
 import kr.jonghyun.noticeboard.domain.user.dto.UserResponseDto;
 import kr.jonghyun.noticeboard.domain.user.entity.User;
@@ -33,7 +35,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserResponseDto login(UserRequestDto requestDto) {
+    public void login(UserRequestDto requestDto, HttpServletResponse response) {
         User user = userRepository.findByIdentifier(requestDto.getIdentifier())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
 
@@ -42,7 +44,14 @@ public class UserServiceImpl implements UserService{
         }
 
         String token = jwtUtil.generateToken(user.getIdentifier());
-        return UserResponseDto.from(user, token);
+
+        Cookie cookie = new Cookie("token", token);
+        cookie.setHttpOnly(true);
+        //TODO 배포에서는 true로 변경 (sending https)
+        cookie.setSecure(false);
+        cookie.setPath("/");
+        cookie.setMaxAge(60 * 60 * 1);
+        response.addCookie(cookie);
     }
 
     @Override

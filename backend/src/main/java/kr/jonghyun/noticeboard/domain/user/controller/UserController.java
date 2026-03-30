@@ -1,5 +1,6 @@
 package kr.jonghyun.noticeboard.domain.user.controller;
 
+import jakarta.servlet.http.HttpServletResponse;
 import kr.jonghyun.noticeboard.domain.user.dto.UserRequestDto;
 import kr.jonghyun.noticeboard.domain.user.dto.UserResponseDto;
 import kr.jonghyun.noticeboard.domain.user.service.UserService;
@@ -20,8 +21,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponseDto> login(@RequestBody UserRequestDto requestDto) {
-        return ResponseEntity.ok(userService.login(requestDto));
+    public ResponseEntity<UserResponseDto> login(@RequestBody UserRequestDto requestDto, HttpServletResponse response) {
+        userService.login(requestDto, response);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")
