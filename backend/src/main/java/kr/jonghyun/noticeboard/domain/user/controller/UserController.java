@@ -36,4 +36,16 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserResponseDto> me(@CookieValue(value = "token", required = false) String token) {
+        if (token == null) return ResponseEntity.status(401).build();
+        return ResponseEntity.ok(userService.me(token));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        userService.logout(response);
+        return ResponseEntity.ok().build();
+    }
 }

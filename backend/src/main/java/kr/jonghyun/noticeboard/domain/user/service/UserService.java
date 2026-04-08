@@ -10,5 +10,7 @@ public interface UserService {
     void login(UserRequestDto requestDto, HttpServletResponse response);
     UserResponseDto findUser(Long id);
     void deleteUser(Long id);
+    UserResponseDto me(String token);
+    void logout(HttpServletResponse response);
 
 }

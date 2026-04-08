@@ -69,4 +69,23 @@ public class UserServiceImpl implements UserService{
         }
         userRepository.deleteById(id);
     }
+
+    @Override
+    public UserResponseDto me(String token) {
+        String identifier = jwtUtil.extractIdentifier(token);
+        User user = userRepository.findByIdentifier(identifier)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 유저입니다."));
+        return UserResponseDto.from(user);
+    }
+
+    @Override
+    public void logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("token", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+    }
+
 }

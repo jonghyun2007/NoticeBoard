@@ -5,6 +5,7 @@ export const userApi = {
         const res = await fetch(`${BASE_URL}/users/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            credentials: "include",
             body: JSON.stringify({ identifier, email, password }),
         });
 
@@ -16,10 +17,24 @@ export const userApi = {
         const res = await fetch(`${BASE_URL}/users/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
+            credentials: "include",
             body: JSON.stringify({ identifier, password }),
         });
+        if (!res.ok) throw new Error(`${res.status}`);
+    },
 
-        if (!res.ok) throw new Error("로그인 실패");
+    me: async () => {
+        const res = await fetch(`${BASE_URL}/users/me`, {
+            credentials: "include",
+        });
+        if (!res.ok) throw new Error("인증 실패");
         return res.json();
+    },
+
+    logout: async () => {
+        await fetch(`${BASE_URL}/users/logout`, {
+            method: "POST",
+            credentials: "include",
+        });
     },
 };

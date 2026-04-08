@@ -14,6 +14,7 @@ export default function LoginPage() {
         try {
             await userApi.login(identifier, password);
             alert("로그인에 성공했습니다.");
+            router.push("/");
         } catch (error) {
             alert("로그인에 실패했습니다.");
         }
