@@ -17,3 +17,7 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
 server:
   port: 8080
+jwt:
+  secret: noticeboard-secret-key-must-be-32bytes!!
+  expiration: 3600000
+  refresh-expiration: 86400000
