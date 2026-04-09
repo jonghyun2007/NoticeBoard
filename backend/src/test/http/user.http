@@ -17,7 +17,7 @@ Content-Type: application/json
 
 {
   "identifier": "jonghyun",
-  "password": "1234"
+  "password": "1234a"
 }
 
 ### 회원 탈퇴

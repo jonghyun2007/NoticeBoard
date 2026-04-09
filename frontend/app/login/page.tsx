@@ -16,7 +16,7 @@ export default function LoginPage() {
             alert("로그인에 성공했습니다.");
             router.push("/");
         } catch (error) {
-            alert("로그인에 실패했습니다.");
+            alert(error instanceof Error ? error.message : "로그인에 실패했습니다.");
         }
     }
 

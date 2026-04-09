@@ -8,8 +8,10 @@ export const userApi = {
             credentials: "include",
             body: JSON.stringify({ identifier, email, password }),
         });
-
-        if (!res.ok) throw new Error("회원가입 실패");
+        if (!res.ok) {
+            const data = await res.json();
+            throw new Error(data.message);
+        }
         return res.json();
     },
 
@@ -20,7 +22,10 @@ export const userApi = {
             credentials: "include",
             body: JSON.stringify({ identifier, password }),
         });
-        if (!res.ok) throw new Error(`${res.status}`);
+        if (!res.ok) {
+            const data = await res.json();
+            throw new Error(data.message);
+        }
     },
 
     me: async () => {
