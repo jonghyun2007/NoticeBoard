@@ -11,11 +11,11 @@ public class UserRequestDto {
     private String email;
     private String password;
 
-    public User toEntity() {
+    public User toEntity(String encodedPassword) {
         return User.builder()
                 .identifier(identifier)
                 .email(email)
-                .password(password)
+                .password(encodedPassword)
                 .build();
     }
 }

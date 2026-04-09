@@ -4,7 +4,7 @@
 - [x] JWT httpOnly 쿠키 방식으로 변경
 - [x] Spring Security 적용
 - [x] GlobalExceptionHandler 도입 (에러 메세지를 알아야 프론트에서 대처하기 수월)
-- [ ] BCrypt 암호화 적용
+- [x] BCrypt 암호화 적용
 - [ ] 게시판 CRUD 구현 (도메인 설계까지 다)
 
 ## Frontend

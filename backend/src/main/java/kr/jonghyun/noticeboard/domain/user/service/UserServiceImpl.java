@@ -8,6 +8,7 @@ import kr.jonghyun.noticeboard.domain.user.entity.User;
 import kr.jonghyun.noticeboard.domain.user.repository.UserRepository;
 import kr.jonghyun.noticeboard.global.config.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -29,7 +31,7 @@ public class UserServiceImpl implements UserService{
             throw new IllegalArgumentException("이미 존재하는 아이디입니다.");
         }
 
-        User user = requestDto.toEntity();
+        User user = requestDto.toEntity(passwordEncoder.encode(requestDto.getPassword()));
         userRepository.save(user);
         return UserResponseDto.from(user);
     }
@@ -39,7 +41,7 @@ public class UserServiceImpl implements UserService{
         User user = userRepository.findByIdentifier(requestDto.getIdentifier())
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 아이디입니다."));
 
-        if (!user.getPassword().equals(requestDto.getPassword())) {
+        if (!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
