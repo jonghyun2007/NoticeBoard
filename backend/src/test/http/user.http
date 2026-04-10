@@ -1,0 +1,24 @@
+### 회원가입
+POST http://localhost:8080/api/users/register
+Content-Type: application/json
+
+{
+  "identifier": "jonghyun",
+  "email": "jonghyun@test.com",
+  "password": "1234"
+}
+
+### 회원 조회
+GET http://localhost:8080/api/users/1
+
+### 로그인
+POST http://localhost:8080/api/users/login
+Content-Type: application/json
+
+{
+  "identifier": "jonghyun",
+  "password": "1234a"
+}
+
+### 회원 탈퇴
+DELETE http://localhost:8080/api/users/1

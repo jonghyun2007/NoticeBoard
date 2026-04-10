@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: my-app
+  datasource:
+    url: jdbc:mysql://localhost:3306/noticeboard?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+server:
+  port: 8080
+jwt:
+  secret: noticeboard-secret-key-must-be-32bytes!!
+  expiration: 3600000
+  refresh-expiration: 86400000
+security:
+  public-urls:
+    - /api/users/register
+    - /api/users/login
